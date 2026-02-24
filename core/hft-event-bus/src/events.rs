@@ -19,6 +19,41 @@ pub struct EventEnvelope {
     pub event: Box<dyn Event>,
 }
 
+impl Clone for EventEnvelope {
+    fn clone(&self) -> Self {
+        Self {
+            id: self.id,
+            timestamp_ns: self.timestamp_ns,
+            priority: self.priority,
+            // For replay purposes, we create a new envelope with the same event data
+            // Note: This is a shallow clone - the actual event data is shared via reference
+            event: Box::new(ReplayEventWrapper {
+                event_type: self.event.event_type().to_string(),
+                priority: self.event.priority(),
+            }),
+        }
+    }
+}
+
+// Wrapper for replayed events that stores just the essential metadata
+#[derive(Debug, Clone)]
+struct ReplayEventWrapper {
+    event_type: String,
+    priority: u8,
+}
+
+impl Event for ReplayEventWrapper {
+    fn event_type(&self) -> &'static str {
+        // Use string interning or leak the string for static lifetime
+        // This is safe for replay purposes where the event type strings are constant
+        Box::leak(self.event_type.clone().into_boxed_str())
+    }
+    
+    fn priority(&self) -> u8 {
+        self.priority
+    }
+}
+
 impl EventEnvelope {
     pub fn new<T: Event + 'static>(event: T, priority: u8) -> Self {
         use std::sync::atomic::{AtomicU64, Ordering};

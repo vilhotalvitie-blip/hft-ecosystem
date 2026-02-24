@@ -60,7 +60,37 @@ impl EventBus {
         
         // Record event if recording is enabled
         if let Some(recorder) = &self.recorder {
-            recorder.record(envelope).await;
+            recorder.record(envelope.clone()).await;
+        }
+        
+        // Get or create channel for this event type
+        let sender = self.channels.entry(event_type.to_string())
+            .or_insert_with(|| {
+                debug!("Creating new channel for event type: {}", event_type);
+                broadcast::channel(CHANNEL_CAPACITY).0
+            })
+            .clone();
+        
+        // Publish to channel
+        match sender.send(envelope) {
+            Ok(_subscriber_count) => {
+                self.increment_stat(event_type, |s| s.published += 1);
+                Ok(())
+            }
+            Err(_) => {
+                self.increment_stat(event_type, |s| s.dropped += 1);
+                Ok(()) // Not an error if no subscribers
+            }
+        }
+    }
+    
+    /// Publish an EventEnvelope directly (used for replay)
+    pub async fn publish_envelope(&self, envelope: EventEnvelope) -> Result<()> {
+        let event_type = envelope.event.event_type();
+        
+        // Record event if recording is enabled
+        if let Some(recorder) = &self.recorder {
+            recorder.record(envelope.clone()).await;
         }
         
         // Get or create channel for this event type

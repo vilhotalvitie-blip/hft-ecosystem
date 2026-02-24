@@ -248,7 +248,7 @@ impl EventReplay {
             }
 
             // Publish event through the bus
-            if let Err(e) = self.bus.publish(&*envelope.event).await {
+            if let Err(e) = self.bus.publish_envelope(envelope.clone()).await {
                 debug!("Failed to publish event {}: {}", i, e);
             }
 
