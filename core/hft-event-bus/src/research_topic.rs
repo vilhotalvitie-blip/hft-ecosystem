@@ -430,6 +430,16 @@ impl crate::Event for ResearchEvent {
             ResearchEvent::ResearchStateChanged(_) => "research_state_changed",
         }
     }
+    
+    fn priority(&self) -> u8 {
+        match self {
+            ResearchEvent::RealTimeDataUpdate(_) => 1, // Highest priority for real-time
+            ResearchEvent::AnalysisStarted(_) | ResearchEvent::AnalysisProgress(_) => 2,
+            ResearchEvent::SignalCreated(_) | ResearchEvent::SignalUpdated(_) => 3,
+            ResearchEvent::AnalysisCompleted(_) | ResearchEvent::AnalysisFailed(_) => 4,
+            _ => 5, // Default priority
+        }
+    }
 }
 
 impl crate::MarketEvent for ResearchEvent {
