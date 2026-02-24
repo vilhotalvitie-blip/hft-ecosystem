@@ -405,41 +405,7 @@ pub struct ResearchStateChangedEvent {
 // ============================================================================
 
 impl crate::Event for ResearchEvent {
-    fn event_type(&self) -> &'static str {
-        match self {
-            ResearchEvent::SignalCreated(_) => "signal_created",
-            ResearchEvent::SignalUpdated(_) => "signal_updated",
-            ResearchEvent::SignalDeleted(_) => "signal_deleted",
-            ResearchEvent::AnalysisRequested(_) => "analysis_requested",
-            ResearchEvent::AnalysisStarted(_) => "analysis_started",
-            ResearchEvent::AnalysisProgress(_) => "analysis_progress",
-            ResearchEvent::AnalysisCompleted(_) => "analysis_completed",
-            ResearchEvent::AnalysisFailed(_) => "analysis_failed",
-            ResearchEvent::FeatureExtracted(_) => "feature_extracted",
-            ResearchEvent::FeaturePipelineUpdated(_) => "feature_pipeline_updated",
-            ResearchEvent::ModelTrainingStarted(_) => "model_training_started",
-            ResearchEvent::ModelTrainingProgress(_) => "model_training_progress",
-            ResearchEvent::ModelTrainingCompleted(_) => "model_training_completed",
-            ResearchEvent::ModelDeploymentRequested(_) => "model_deployment_requested",
-            ResearchEvent::ModelDeploymentCompleted(_) => "model_deployment_completed",
-            ResearchEvent::RealTimeDataUpdate(_) => "real_time_data_update",
-            ResearchEvent::VisualizationUpdate(_) => "visualization_update",
-            ResearchEvent::StatisticalTestCompleted(_) => "statistical_test_completed",
-            ResearchEvent::CorrelationMatrixUpdated(_) => "correlation_matrix_updated",
-            ResearchEvent::ResearchConfigUpdated(_) => "research_config_updated",
-            ResearchEvent::ResearchStateChanged(_) => "research_state_changed",
-        }
-    }
-    
-    fn priority(&self) -> u8 {
-        match self {
-            ResearchEvent::RealTimeDataUpdate(_) => 1, // Highest priority for real-time
-            ResearchEvent::AnalysisStarted(_) | ResearchEvent::AnalysisProgress(_) => 2,
-            ResearchEvent::SignalCreated(_) | ResearchEvent::SignalUpdated(_) => 3,
-            ResearchEvent::AnalysisCompleted(_) | ResearchEvent::AnalysisFailed(_) => 4,
-            _ => 5, // Default priority
-        }
-    }
+    // event_type is implemented by MarketEvent trait
 }
 
 impl crate::MarketEvent for ResearchEvent {
