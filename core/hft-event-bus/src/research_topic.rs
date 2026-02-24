@@ -443,6 +443,13 @@ impl crate::Event for ResearchEvent {
 }
 
 impl crate::MarketEvent for ResearchEvent {
+    fn event_type(&self) -> crate::EventType {
+        match self {
+            ResearchEvent::RealTimeDataUpdate(_) => crate::EventType::Trade,
+            _ => crate::EventType::Custom,
+        }
+    }
+    
     fn timestamp(&self) -> i64 {
         match self {
             ResearchEvent::SignalCreated(e) => e.timestamp,
