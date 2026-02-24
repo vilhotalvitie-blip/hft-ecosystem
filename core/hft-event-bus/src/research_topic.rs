@@ -404,9 +404,7 @@ pub struct ResearchStateChangedEvent {
 // Trait Implementation for Event Bus Integration
 // ============================================================================
 
-impl crate::Event for ResearchEvent {
-    // event_type is implemented by MarketEvent trait
-}
+// ResearchEvent implements MarketEvent which extends Event, so no separate Event impl needed
 
 impl crate::MarketEvent for ResearchEvent {
     fn event_type(&self) -> crate::EventType {
