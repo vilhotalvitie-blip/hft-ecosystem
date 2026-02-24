@@ -65,5 +65,5 @@ pub use replay_mode::{EventReplay, EventReplayBuilder, ReplaySpeed, ReplayStats,
 pub use fast_channel::FastChannel;
 pub use typed_bus::TypedEventBus;
 
-// Research topic exports
-pub use research_topic::{ResearchEvent, SignalCreatedEvent, SignalUpdatedEvent, SignalDeletedEvent, AnalysisRequestedEvent, AnalysisStartedEvent, AnalysisProgressEvent, AnalysisCompletedEvent, AnalysisFailedEvent, FeatureExtractedEvent, FeaturePipelineUpdatedEvent, ModelTrainingStartedEvent, ModelTrainingProgressEvent, ModelTrainingCompletedEvent, ModelDeploymentRequestedEvent, ModelDeploymentCompletedEvent, RealTimeDataUpdateEvent, VisualizationUpdateEvent, StatisticalTestCompletedEvent, CorrelationMatrixUpdatedEvent, ResearchConfigUpdatedEvent, ResearchStateChangedEvent};
+// Research topic exports (temporarily commented out)
+// pub use research_topic::{ResearchEvent, SignalCreatedEvent, SignalUpdatedEvent, SignalDeletedEvent, AnalysisRequestedEvent, AnalysisStartedEvent, AnalysisProgressEvent, AnalysisCompletedEvent, AnalysisFailedEvent, FeatureExtractedEvent, FeaturePipelineUpdatedEvent, ModelTrainingStartedEvent, ModelTrainingProgressEvent, ModelTrainingCompletedEvent, ModelDeploymentRequestedEvent, ModelDeploymentCompletedEvent, RealTimeDataUpdateEvent, VisualizationUpdateEvent, StatisticalTestCompletedEvent, CorrelationMatrixUpdatedEvent, ResearchConfigUpdatedEvent, ResearchStateChangedEvent};
