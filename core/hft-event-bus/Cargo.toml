@@ -1,0 +1,47 @@
+[package]
+name = "hft-event-bus"
+version = "0.1.0"
+edition = "2021"
+authors = ["HFT System"]
+description = "High-performance event bus for HFT system with typed events and multi-threaded pub/sub"
+license = "MIT"
+
+[dependencies]
+# Market data types
+market-data-engine = { path = "../../data/market-data-engine" }
+
+# Async runtime
+tokio = { version = "1.35", features = ["full"] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Error handling
+anyhow = "1.0"
+thiserror = "1.0"
+
+# Time
+chrono = { version = "0.4", features = ["serde"] }
+
+# UUID for event IDs
+uuid = { version = "1.0", features = ["v4", "fast-rng", "serde"] }
+
+# Logging
+tracing = "0.1"
+
+# Collections
+dashmap = "5.5"  # Concurrent HashMap
+crossbeam = "0.8"  # Lock-free data structures
+
+# Zero-allocation channels
+flume = "0.11"  # Fast MPSC channels
+arrayvec = "0.7"  # Fixed-size vectors
+
+[dev-dependencies]
+tokio-test = "0.4"
+criterion = "0.5"
+
+[lib]
+name = "hft_event_bus"
+path = "src/lib.rs"
