@@ -71,13 +71,6 @@ impl crate::Event for ResearchEvent {
             ResearchEvent::ResearchConfigUpdated(_) => "research_config_updated",
             ResearchEvent::ResearchStateChanged(_) => "research_state_changed",
         }
-
-    fn event_type(&self) -> crate::EventType {
-        match self {
-            ResearchEvent::RealTimeDataUpdate(_) => crate::EventType::Trade,
-            _ => crate::EventType::Custom,
-        }
-    }
 }
 
 // ============================================================================
