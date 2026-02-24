@@ -60,7 +60,7 @@ impl EventBus {
         
         // Record event if recording is enabled
         if let Some(recorder) = &self.recorder {
-            recorder.record(envelope.clone()).await;
+            recorder.record(envelope).await;
         }
         
         // Get or create channel for this event type

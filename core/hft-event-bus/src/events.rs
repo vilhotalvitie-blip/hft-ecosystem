@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
 /// Base event wrapper with metadata
-#[derive(Debug, Clone)]
+#[derive(Debug)]
 pub struct EventEnvelope {
     /// Unique event ID
     pub id: Uuid,
